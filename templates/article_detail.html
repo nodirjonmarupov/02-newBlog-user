@@ -1,0 +1,139 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .article-card {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .article-image {
+        width: 100%;
+        max-height: 500px;
+        object-fit: cover;
+        border-radius: 15px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .article-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+    
+    .article-meta {
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #eee;
+    }
+    
+    .article-body {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #444;
+        margin-bottom: 2rem;
+    }
+    
+    .article-actions {
+        padding: 1rem;
+        background: linear-gradient(135deg, #667eea15, #764ba215);
+        border-radius: 10px;
+        margin-bottom: 2rem;
+    }
+    
+    .article-actions a {
+        color: #667eea;
+        font-weight: 600;
+        text-decoration: none;
+        margin: 0 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .article-actions a:hover {
+        color: #764ba2;
+        text-decoration: underline;
+    }
+    
+    .comments-section {
+        margin-top: 2rem;
+    }
+    
+    .comment-card {
+        background: #f8f9fa;
+        border-left: 4px solid #667eea;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .comment-card:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .comment-text {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 0.5rem;
+    }
+    
+    .comment-author {
+        color: #667eea;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    
+    .comments-header {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 10px 10px 0 0;
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="article-card">
+        {% if object.photo %}
+            <img class="article-image" src="{{ object.photo.url }}" alt="{{ object.title }}">
+        {% endif %}
+        
+        <h1 class="article-title">{{ object.title }}</h1>
+        
+        <div class="article-meta">
+            👤 Muallif: <strong>{{ object.author }}</strong> | 📅 {{ object.date }}
+        </div>
+        
+        <div class="article-body">
+            {{ object.body | safe }}
+        </div>
+        
+        <div class="article-actions">
+            <a href="{% url 'article_edit' article.pk %}">✏️ Tahrirlash</a> |
+            <a href="{% url 'article_delete' article.pk %}">🗑️ O'chirish</a> |
+            <a href="{% url 'article_list' %}">📋 Barcha postlar</a>
+        </div>
+        
+        {% if article.comments.all %}
+        <div class="comments-section">
+            <div class="comments-header">
+                💬 Izohlar ({{ article.comments.count }})
+            </div>
+            {% for comment in article.comments.all %}
+                <div class="comment-card">
+                    <p class="comment-text">{{ comment }}</p>
+                    <footer class="comment-author">— {{ comment.author }}</footer>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
