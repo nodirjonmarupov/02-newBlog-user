@@ -29,7 +29,8 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG",default=False)
 
-ALLOWED_HOSTS = ['NodirjonBlog.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
+# ALLOWED_HOSTS = ['NodirjonBlog.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
@@ -85,11 +86,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# settings.py faylida 89-qator
 DATABASES = {
-    "default":env.dj_db_url("DATABASE_URL")
+    # DATABASE_URL topilmasa, sqlite:///<loyiha nomi>/db.sqlite3 ga qaytadi.
+    "default": env.dj_db_url(
+        "DATABASE_URL", 
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+    )
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
