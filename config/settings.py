@@ -88,9 +88,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # settings.py faylida 89-qator
 DATABASES = {
-    # DATABASE_URL topilmasa, sqlite:///<loyiha nomi>/db.sqlite3 ga qaytadi.
     "default": env.dj_db_url(
-        "DATABASE_URL", 
+        "DATABASE_URL",
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
     )
 }
