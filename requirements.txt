@@ -1,6 +1,9 @@
-django
-gunicorn 
+Django
+gunicorn
 psycopg2-binary
+python-dotenv
 environs
 dj-database-url
 whitenoise
+django-crispy-forms
+crispy-bootstrap4
