@@ -8,3 +8,4 @@ whitenoise
 django-crispy-forms
 crispy-bootstrap5
 django-ckeditor
+Pillow
