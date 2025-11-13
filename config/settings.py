@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from environs import Env
 
+
 env= Env()
 env.read_env()
 
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'cloudinary_storage',  # ← BU YERDA
+    'cloudinary',  
     'crispy_forms',
     'ckeditor',
     'ckeditor_uploader',
@@ -184,3 +187,22 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True # Bu eng muhimi, 403 ni hal qilishi mumkin
+
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': env('CLOUDINARY_API_KEY'),
+    'API_SECRET': env('CLOUDINARY_API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+```
+
+#### E) Render Environment ga qo'shing:
+
+Render → Environment:
+```
+CLOUDINARY_CLOUD_NAME=sizning_cloud_name
+CLOUDINARY_API_KEY=sizning_api_key
+CLOUDINARY_API_SECRET=sizning_api_secret
