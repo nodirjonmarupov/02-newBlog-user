@@ -132,6 +132,14 @@ STATICFILES_DIRS = [str(BASE_DIR.joinpath('static'))]
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles')) # new
 STATICFILES_STORAGE ='whitenoise.storage.CompressedManifestStaticFilesStorage' # new
 
+# Media files (BU YO'Q EDI - QO'SHING!)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
+
+# CSRF (Production uchun)
+CSRF_TRUSTED_ORIGINS = [
+    'https://zero2-newblog-user.onrender.com',
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -153,6 +161,8 @@ MEDIA_URL='/media/'
 MEDIA_ROOT=str(BASE_DIR.joinpath('media'))
 
 #CKEDITOR CONFIGS
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS={
     'default':{
         'toolbar':'Full',
