@@ -164,3 +164,11 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_RESTRICT_BY_USER=True
 
 CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
+
+# Renderda HTTPS ishlashini ta'minlash uchun xavfsizlik sozlamalari
+
+# Production (Render) da True bo'lishi kerak
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') 
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True # Bu eng muhimi, 403 ni hal qilishi mumkin
