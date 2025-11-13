@@ -190,6 +190,8 @@ CSRF_COOKIE_SECURE = True # Bu eng muhimi, 403 ni hal qilishi mumkin
 
 
 
+# Cloudinary sozlamalari
+
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': env('CLOUDINARY_API_KEY'),
@@ -197,12 +199,3 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-```
-
-#### E) Render Environment ga qo'shing:
-
-Render → Environment:
-```
-CLOUDINARY_CLOUD_NAME=sizning_cloud_name
-CLOUDINARY_API_KEY=sizning_api_key
-CLOUDINARY_API_SECRET=sizning_api_secret
