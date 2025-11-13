@@ -29,7 +29,7 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG",default=False)
 
-ALLOWED_HOSTS = ['zero2-newblog-user.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
 # ALLOWED_HOSTS = ['NodirjonBlog.pythonanywhere.com','127.0.0.1']
 
 
