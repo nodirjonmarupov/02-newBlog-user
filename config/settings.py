@@ -163,3 +163,4 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 
 CKEDITOR_RESTRICT_BY_USER=True
 
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
