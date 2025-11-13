@@ -13,29 +13,21 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from environs import Env
 
-
-env= Env()
+env = Env()
 env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG",default=False)
+DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
-# ALLOWED_HOSTS = ['NodirjonBlog.pythonanywhere.com','127.0.0.1']
-
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,12 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'cloudinary_storage',  # ← BU YERDA
-    'cloudinary',  
+    'cloudinary_storage',
+    'cloudinary',
     'crispy_forms',
+    'crispy_bootstrap5',
     'ckeditor',
     'ckeditor_uploader',
-    'crispy_bootstrap5',
     'accounts',
     'pages',
     'articles',
@@ -85,20 +77,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-# settings.py faylida 89-qator
 DATABASES = {
     "default": env.dj_db_url(
         "DATABASE_URL",
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
     )
 }
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
+# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -114,88 +101,59 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Asia/Seoul'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
+# Static files
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [str(BASE_DIR.joinpath('static'))]
-STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles')) # new
-STATICFILES_STORAGE ='whitenoise.storage.CompressedManifestStaticFilesStorage' # new
+STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files (BU YO'Q EDI - QO'SHING!)
+# Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
 
-# CSRF (Production uchun)
-CSRF_TRUSTED_ORIGINS = [
-    'https://zero2-newblog-user.onrender.com',
-]
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL= 'accounts.CustomUser'
+# Custom user model
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
-# EMAIL BACKEND
+# Email backend
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
-EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
-LOGIN_REDIRECT_URL='home'
-LOGOUT_REDIRECT_URL='home'
-CRISPY_ALLOWED_TEMPLATE_PACK=['bootstrap5']
-CRISPY_TEMPLATE_PACK='bootstrap5'
+# Crispy Forms
+CRISPY_ALLOWED_TEMPLATE_PACK = ['bootstrap5']
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
-# MEDIA
-
-MEDIA_URL='/media/'
-MEDIA_ROOT=str(BASE_DIR.joinpath('media'))
-
-#CKEDITOR CONFIGS
+# CKEditor
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
-CKEDITOR_CONFIGS={
-    'default':{
-        'toolbar':'Full',
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
     },
 }
+CKEDITOR_RESTRICT_BY_USER = True
 
-CKEDITOR_UPLOAD_PATH = "uploads/"
-
-CKEDITOR_RESTRICT_BY_USER=True
-
+# CSRF
 CSRF_TRUSTED_ORIGINS = [
     'https://zero2-newblog-user.onrender.com',
 ]
 
-# Renderda HTTPS ishlashini ta'minlash uchun xavfsizlik sozlamalari
+# Security settings
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Production (Render) da True bo'lishi kerak
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True # Bu eng muhimi, 403 ni hal qilishi mumkin
-
-
-
-# Cloudinary sozlamalari
-
+# Cloudinary
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': env('CLOUDINARY_API_KEY'),
     'API_SECRET': env('CLOUDINARY_API_SECRET'),
 }
-
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
