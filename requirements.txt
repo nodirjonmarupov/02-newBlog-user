@@ -6,5 +6,5 @@ environs
 dj-database-url
 whitenoise
 django-crispy-forms
-crispy-bootstrap4
+crispy-bootstrap5
 django-ckeditor
