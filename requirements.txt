@@ -9,3 +9,6 @@ django-crispy-forms
 crispy-bootstrap5
 django-ckeditor
 Pillow
+Cloud name: doziy8lqm
+API Key:847378144815294
+API Secret:H5Wxyd1tP3IGjKyOgP_PTZ2VQGk
